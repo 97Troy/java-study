@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/StudentPerformanceManagement/StudentPerformanceManagement.iml" filepath="$PROJECT_DIR$/StudentPerformanceManagement/StudentPerformanceManagement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basic-java-part1-exercise/basic-java-part1-exercise.iml" filepath="$PROJECT_DIR$/basic-java-part1-exercise/basic-java-part1-exercise.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basic-java-part2-exercise/basic-java-part2-exercise.iml" filepath="$PROJECT_DIR$/basic-java-part2-exercise/basic-java-part2-exercise.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basic-java-part3-ObjectOrientied/basic-java-part3-ObjectOrientied.iml" filepath="$PROJECT_DIR$/basic-java-part3-ObjectOrientied/basic-java-part3-ObjectOrientied.iml" />
+    </modules>
+  </component>
+</project>
