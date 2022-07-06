@@ -7,15 +7,17 @@ import java.util.Scanner;
 public class PerformanceManagementSystem {
     public static int srId = 0;
 
+    static ArrayList<Student> students = new ArrayList<>();//学生
+    static ArrayList<Subject> subjects = new ArrayList<>();//科目
+    static ArrayList<ScoreRecord> scoreRecords = new ArrayList<>();//成绩记录
+
     public static void main(String[] args) {
-        ArrayList<Student> students = new ArrayList<>();//学生
-        ArrayList<Subject> subjects = new ArrayList<>();//科目
-        ArrayList<ScoreRecord> scoreRecords = new ArrayList<>();//成绩记录
-        startSystem(students, subjects, scoreRecords);
+
+        startSystem();
     }
 
     //管理系统页面
-    public static void startSystem(ArrayList<Student> students, ArrayList<Subject> subjects, ArrayList<ScoreRecord> scoreRecords) {
+    public static void startSystem() {
         java.lang.System.out.println("---------欢迎使用学生成绩管理系统---------");
         String choose = "1";
         Scanner scan = new Scanner(java.lang.System.in);
@@ -29,24 +31,24 @@ public class PerformanceManagementSystem {
             switch (choose) {
                 case "1"://插入信息
                     insert(students, subjects, scoreRecords);
-                    java.lang.System.out.println("请继续选择功能：");
+                    System.out.println("请继续选择功能：");
                     break;
                 case "2"://删除信息
                     delete(students, subjects, scoreRecords);
-                    java.lang.System.out.println("请继续选择功能：");
+                    System.out.println("请继续选择功能：");
                     break;
                 case "3"://修改信息
                     update(students, subjects, scoreRecords);
-                    java.lang.System.out.println("请继续选择功能：");
+                    System.out.println("请继续选择功能：");
                     break;
                 case "4"://查询信息
                     query(students, subjects, scoreRecords);
-                    java.lang.System.out.println("请继续选择功能：");
+                    System.out.println("请继续选择功能：");
                     break;
                 case "0":
                     return;
                 default:
-                    java.lang.System.out.println("没有这个选项，请确认后重新输入");
+                    System.out.println("没有这个选项，请确认后重新输入");
             }
         }
     }
@@ -89,7 +91,9 @@ public class PerformanceManagementSystem {
                     break;
                 case "0":
                     return;
-
+                case "9":
+                     startSystem();
+                    return;
                 default:
                     System.out.println("没有该选项，请确认后再选择：1.添加学生信息 2.添加科目信息 3.添加成绩记录 0.退出添加");
             }
@@ -185,8 +189,7 @@ public class PerformanceManagementSystem {
         }
 
 
-
-        studentName = students.get(getStudentIndex(studentId,students)).getName();//获取学生姓名
+        studentName = students.get(getStudentIndex(studentId, students)).getName();//获取学生姓名
 
 
         //输入各科成绩，每门科目一条记录
@@ -551,9 +554,9 @@ public class PerformanceManagementSystem {
         Scanner scan = new Scanner(System.in);
         String testNo = "";
         System.out.println("请输入考试场次：");
-        while (true){//确认考试场次存在
+        while (true) {//确认考试场次存在
             String no = scan.nextLine();
-            if (no.equals("0")){//输入0退出
+            if (no.equals("0")) {//输入0退出
                 return;
             }
             for (ScoreRecord scoreRecord : scoreRecords) {
@@ -564,7 +567,7 @@ public class PerformanceManagementSystem {
             }
             if (testNo.equals("")) {
                 System.out.println("输入场次错误，请确认后重新输入");
-            }else {
+            } else {
                 break;
             }
         }
@@ -584,12 +587,12 @@ public class PerformanceManagementSystem {
 
         String studentId = "";
         System.out.println("请输入要查询的学号：");
-        while (true){//判断学号是否存在
+        while (true) {//判断学号是否存在
             String id = scan.nextLine();
-            if (id.equals("0")){
+            if (id.equals("0")) {
                 return;
             }
-            int index = getStudentIndex(id,students);
+            int index = getStudentIndex(id, students);
             if (index >= 0) {
                 for (ScoreRecord scoreRecord : scoreRecords) {
                     if (id.equals(scoreRecord.getStudentId())) {
@@ -597,22 +600,22 @@ public class PerformanceManagementSystem {
                         break;
                     }
                 }
-                if (studentId.equals("")){
+                if (studentId.equals("")) {
                     System.out.println("学号输入错误，请确认后重新输入：");
-                }else {
+                } else {
                     break;
                 }
 
-            }else {
+            } else {
                 System.out.println("学号输入错误，请确认后重新输入：");
             }
         }
 
         String testNo = "";
         System.out.println("请输入要查询的场次：");
-        while (true){//判断场次是否存在
+        while (true) {//判断场次是否存在
             String no = scan.nextLine();
-            if (no.equals("0")){
+            if (no.equals("0")) {
                 return;
             }
             for (ScoreRecord scoreRecord : scoreRecords) {
@@ -621,17 +624,17 @@ public class PerformanceManagementSystem {
                     break;
                 }
             }
-            if (testNo.equals("")){
+            if (testNo.equals("")) {
                 System.out.println("场次输入错误，请确认后重新输入：");
-            }else {
+            } else {
                 break;
             }
         }
         //展示
         System.out.println("学号\t\t姓名\t\t学科\t\t成绩\t\t场次\t\t");
         for (ScoreRecord scoreRecord : scoreRecords) {
-            if (testNo.equals(scoreRecord.getNo()) && studentId.equals(scoreRecord.getStudentId())){
-                showPerformance(students,subjects,scoreRecord);
+            if (testNo.equals(scoreRecord.getNo()) && studentId.equals(scoreRecord.getStudentId())) {
+                showPerformance(students, subjects, scoreRecord);
             }
         }
     }
@@ -641,35 +644,35 @@ public class PerformanceManagementSystem {
         Scanner scan = new Scanner(System.in);
         String subjectId = "";
         System.out.println("请输入学科号");
-        while (true){
+        while (true) {
             String id = scan.nextLine();
-            if (id.equals("0")){//输入0退出
+            if (id.equals("0")) {//输入0退出
                 return;
             }
-            int index = getSubjectIndex(id,subjects);
-            if (index >= 0){
+            int index = getSubjectIndex(id, subjects);
+            if (index >= 0) {
                 for (ScoreRecord scoreRecord : scoreRecords) {
-                if (id.equals(scoreRecord.getSubjectId())) {
-                    subjectId = id;
-                    break;
+                    if (id.equals(scoreRecord.getSubjectId())) {
+                        subjectId = id;
+                        break;
+                    }
                 }
-            }
-                if (subjectId.equals("")){
+                if (subjectId.equals("")) {
                     System.out.println("课程号输入错误，请确认后重新输入：");
-                }else {
+                } else {
                     break;
                 }
 
-            }else {
+            } else {
                 System.out.println("学科号输入错误，请确认后重新输入：");
             }
         }
 
         String testNo = "";
         System.out.println("请输入要查询的场次：");
-        while (true){//判断场次是否存在
+        while (true) {//判断场次是否存在
             String no = scan.nextLine();
-            if (no.equals("0")){
+            if (no.equals("0")) {
                 return;
             }
             for (ScoreRecord scoreRecord : scoreRecords) {
@@ -678,9 +681,9 @@ public class PerformanceManagementSystem {
                     break;
                 }
             }
-            if (testNo.equals("")){
+            if (testNo.equals("")) {
                 System.out.println("场次输入错误，请确认后重新输入：");
-            }else {
+            } else {
                 break;
             }
         }
@@ -688,13 +691,13 @@ public class PerformanceManagementSystem {
         ArrayList<Double> arr = new ArrayList<Double>();
         System.out.println("学号\t\t姓名\t\t学科\t\t成绩\t\t场次\t\t");
         for (ScoreRecord scoreRecord : scoreRecords) {
-            if (testNo.equals(scoreRecord.getNo()) && subjectId.equals(scoreRecord.getSubjectId())){
+            if (testNo.equals(scoreRecord.getNo()) && subjectId.equals(scoreRecord.getSubjectId())) {
                 arr.add(scoreRecord.getScore());
-                showPerformance(students,subjects,scoreRecord);
+                showPerformance(students, subjects, scoreRecord);
             }
         }
 
-        System.out.println("平均成绩是"+ avg(arr));
+        System.out.println("平均成绩是" + avg(arr));
         System.out.println("最大成绩是：" + max(arr) + ",最小成绩是：" + min(arr));
 
     }
@@ -721,7 +724,7 @@ public class PerformanceManagementSystem {
     }
 
     //展示成绩
-    public static void showPerformance(ArrayList<Student> students, ArrayList<Subject> subjects,ScoreRecord scoreRecord){
+    public static void showPerformance(ArrayList<Student> students, ArrayList<Subject> subjects, ScoreRecord scoreRecord) {
         String studentId = scoreRecord.getStudentId();
         String subjectId = scoreRecord.getSubjectId();
         String studentName = "";
@@ -734,41 +737,41 @@ public class PerformanceManagementSystem {
             }
         }
         for (Subject subject : subjects) {
-            if (subjectId.equals(subject.getSubId())){
+            if (subjectId.equals(subject.getSubId())) {
                 subjectName = subject.getName();
                 break;
             }
         }
 
-        System.out.println(studentId +"\t\t"+ studentName +"\t\t"+ subjectName +"\t\t"+ scoreRecord.getScore() +"\t\t"+ no);
+        System.out.println(studentId + "\t\t" + studentName + "\t\t" + subjectName + "\t\t" + scoreRecord.getScore() + "\t\t" + no);
     }
 
     //平均成绩
-    public static double avg(ArrayList<Double> arr){
+    public static double avg(ArrayList<Double> arr) {
         double sum = 0;
         for (Double aDouble : arr) {
             sum += aDouble;
         }
         return sum / arr.size();
     }
+
     //最大成绩
-    public static double max(ArrayList<Double> arr){
+    public static double max(ArrayList<Double> arr) {
         double max = arr.get(0);
         for (Double aDouble : arr) {
             max = max >= aDouble ? max : aDouble;
         }
         return max;
     }
+
     //最小成绩
-    public static double min(ArrayList<Double> arr){
+    public static double min(ArrayList<Double> arr) {
         double min = arr.get(0);
         for (Double aDouble : arr) {
             min = min <= aDouble ? min : aDouble;
         }
         return min;
     }
-
-
 
 
 }
